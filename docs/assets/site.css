@@ -471,6 +471,10 @@ figure.solo img { border-radius: var(--radius); box-shadow: var(--shadow); width
 .g-imgs a:hover img { transform: scale(1.045); }
 .g-vids { grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); }
 
+/* a lone video gets a big centered frame */
+.vid-solo { max-width: 860px; margin: 30px auto; }
+.vid-solo .yt { box-shadow: var(--shadow-lg); border-radius: 16px; }
+
 /* youtube facade */
 .yt {
   position: relative;

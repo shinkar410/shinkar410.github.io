@@ -192,6 +192,13 @@ def vid_embed(url):
             f'<img loading="lazy" src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="סרטון">'
             f'<button class="play" aria-label="נגן סרטון"></button></div>')
 
+def vids_block(urls, style=""):
+    """one video -> large centered frame; several -> grid"""
+    sty = f' style="{style}"' if style else ""
+    if len(urls) == 1:
+        return f'<div class="vid-solo"{sty}>{vid_embed(urls[0])}</div>'
+    return f'<div class="grid g-vids"{sty}>{"".join(vid_embed(v) for v in urls)}</div>'
+
 LIST_TRIGGER = re.compile(r':\s*$')
 
 def tidy(t):
@@ -229,7 +236,7 @@ def render_prose(items, rel, page_title):
                 out.append(img_grid(imgbuf, rel))
             imgbuf = []
         if vidbuf:
-            out.append(f'<div class="grid g-vids">{"".join(vid_embed(v) for v in vidbuf)}</div>')
+            out.append(vids_block(vidbuf))
             vidbuf = []
 
     for it in items:
@@ -513,8 +520,7 @@ def build_gallery():
         top_vids.append(items.pop(0)["url"])
     top_html = ""
     if top_vids:
-        top_html = (f'<div class="grid g-vids" style="margin-top:38px">'
-                    f'{"".join(vid_embed(v) for v in top_vids)}</div>')
+        top_html = vids_block(top_vids, "margin-top:38px")
     seen, imgs, vids = set(), [], []
     for it in items:
         if it["t"] == "gallery":
@@ -531,7 +537,7 @@ def build_gallery():
     vhtml = ""
     if vids:
         vhtml = (f'<div class="sec-head" style="margin-top:54px"><h2>סרטונים מהאירועים</h2></div>'
-                 f'<div class="grid g-vids">{"".join(vid_embed(v) for v in vids)}</div>')
+                 + vids_block(vids))
     body = (page_hero("גלריה", rel)
             + f'<main class="wrap">{top_html}<div style="margin-top:38px">{img_grid(imgs, rel)}</div>{vhtml}</main>'
             + cta_band())
@@ -543,7 +549,7 @@ def build_videos():
     rel = "../"
     vids = [it["url"] for it in d["items"] if it["t"] == "video"]
     body = (page_hero("סרטונים", rel)
-            + f'<main class="wrap"><div class="grid g-vids" style="margin-top:38px">{"".join(vid_embed(v) for v in vids)}</div></main>'
+            + f'<main class="wrap">{vids_block(vids, "margin-top:38px")}</main>'
             + cta_band())
     return shell(rel, d["title"], d["desc"], body, active="סרטונים")
 
