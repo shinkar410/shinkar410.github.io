@@ -510,7 +510,7 @@ def build_home():
 <section class="hero">{plane}<div class="wrap hero-in">
 <div>
 <h1>אטרקציה שאי אפשר לשכוח:<br><em>סימולטור טיסה בתא טייס אמיתי</em></h1>
-<p class="hero-sub">תא טייס של מטוס סילוני שטס בשמי ישראל — נייד, אמיתי עד הכפתור האחרון, ומגיע לכל מקום בארץ. לאירועים פרטיים ועסקיים, בר/בת מצווה, קייטנות, הפנינגים ופרסום.</p>
+<p class="hero-sub">תא טייס של מטוס סילוני שטס בשמי ישראל — נייד, אמיתי עד הכפתור האחרון, <span class="ink">ומגיע לכל מקום בארץ<svg class="ink-u" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 10 C 60 3, 130 14, 195 7 S 280 4, 296 11"/></svg></span>. לאירועים פרטיים ועסקיים, בר/בת מצווה, קייטנות, הפנינגים ופרסום.</p>
 <div class="hero-cta">
 <a class="btn btn-wa" href="{WA}" target="_blank" rel="noopener">{ICONS["wa"]}דברו איתנו בוואטסאפ</a>
 <a class="btn btn-ghost" href="#services">לכל האטרקציות</a>
