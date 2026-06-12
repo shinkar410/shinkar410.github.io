@@ -245,13 +245,18 @@ def tidy(t):
     return t.strip()
 
 def render_prose(items, rel, page_title):
-    """flat item list -> structured article html"""
+    """flat item list -> structured article html (videos hoisted to top)"""
     out = []
     imgbuf = []
     vidbuf = []
     lead_used = False
     in_list = False
     last_kind = None
+
+    # the video(s) always open the page; text and images follow below
+    top_vids = [it["url"] for it in items if it["t"] == "video"]
+    if top_vids:
+        out.append(vids_block(top_vids))
 
     def flush():
         nonlocal imgbuf, vidbuf, in_list, last_kind
@@ -286,10 +291,7 @@ def render_prose(items, rel, page_title):
             out.append(img_grid(it["srcs"], rel))
             continue
         if t == "video":
-            if in_list: out.append('</ul>'); in_list = False
-            if imgbuf: flush()
-            vidbuf.append(it["url"])
-            continue
+            continue  # already rendered at the top
         if t == "text":
             flush()
             for p in it["paras"]:
@@ -663,8 +665,8 @@ def build_wedding():
                 + "".join(f'<li>{H.escape(t)}</li>' for t in items) + '</ul>')
 
     prose = f'''<article class="prose">
-<p class="lead">🎉 בובות ענק לאירוע שלכם! 🎉 רוצים להוסיף לטקס שלכם ייחודיות ולהעניק לאורחים חוויה בלתי נשכחת? הבובות שלנו — דמויות ענק של חתן וכלה — הן הבחירה המושלמת.</p>
 {vids_block(vids)}
+<p class="lead">🎉 בובות ענק לאירוע שלכם! 🎉 רוצים להוסיף לטקס שלכם ייחודיות ולהעניק לאורחים חוויה בלתי נשכחת? הבובות שלנו — דמויות ענק של חתן וכלה — הן הבחירה המושלמת.</p>
 {checks(["📸 תמונות, רגשות, מחיאות כפיים והתלהבות — מובטחים",
          "✈️ בובות הענק שלנו = אפקט WOW!",
          "תנו לאורחים לזכור את האירוע שלכם לנצח"])}
