@@ -52,7 +52,7 @@ def u(src):
     return H.escape(urllib.parse.quote(src, safe="/%:?=&"), quote=True)
 
 def yt_id(url):
-    m = re.search(r'(?:v=|youtu\.be/|embed/)([\w-]{6,})', url)
+    m = re.search(r'(?:v=|youtu\.be/|embed/|shorts/)([\w-]{6,})', url)
     return m.group(1) if m else None
 
 def variant(src, maxw):
@@ -506,8 +506,17 @@ def build_home():
 def build_gallery():
     d = DATA["גלריה"]
     rel = "../"
+    # videos placed at the head of the item list open the page
+    items = list(d["items"])
+    top_vids = []
+    while items and items[0]["t"] == "video":
+        top_vids.append(items.pop(0)["url"])
+    top_html = ""
+    if top_vids:
+        top_html = (f'<div class="grid g-vids" style="margin-top:38px">'
+                    f'{"".join(vid_embed(v) for v in top_vids)}</div>')
     seen, imgs, vids = set(), [], []
-    for it in d["items"]:
+    for it in items:
         if it["t"] == "gallery":
             for s in it["srcs"]:
                 k = full(s)
@@ -524,7 +533,7 @@ def build_gallery():
         vhtml = (f'<div class="sec-head" style="margin-top:54px"><h2>סרטונים מהאירועים</h2></div>'
                  f'<div class="grid g-vids">{"".join(vid_embed(v) for v in vids)}</div>')
     body = (page_hero("גלריה", rel)
-            + f'<main class="wrap"><div style="margin-top:38px">{img_grid(imgs, rel)}</div>{vhtml}</main>'
+            + f'<main class="wrap">{top_html}<div style="margin-top:38px">{img_grid(imgs, rel)}</div>{vhtml}</main>'
             + cta_band())
     return shell(rel, d["title"], d["desc"], body, active="גלריה")
 
