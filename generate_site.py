@@ -170,7 +170,7 @@ def shell(rel, title, desc, body, active=None, og_img=None):
 </html>'''
 
 def cta_band():
-    return f'''<section class="wrap"><div class="cta-band">
+    return f'''<section class="wrap"><div class="cta-band" data-rv>
 <h2>רוצים אטרקציה שאף אחד לא ישכח?</h2>
 <p>ספרו לנו על האירוע שלכם ונחזור אליכם עם כל הפרטים — אנחנו מגיעים לכל מקום בארץ.</p>
 <div class="hero-cta">
@@ -307,7 +307,7 @@ def build_home():
             link = urllib.parse.quote(urllib.parse.unquote(link), safe="/%-._~")
         else:
             link = enc("צור-קשר") + "/"
-        card_html += (f'<a class="card" href="{link}">'
+        card_html += (f'<a class="card" data-rv href="{link}">'
                       f'<img loading="lazy" src="{u(variant(c["img"], 768))}" alt="{H.escape(c["title"], quote=True)}">'
                       f'<div class="card-b"><h3>{H.escape(c["title"])}</h3>'
                       f'<p>{H.escape(c.get("blurb", ""))}</p>'
@@ -316,17 +316,40 @@ def build_home():
     hero_img = "wp-content/uploads/2024/02/aviator.co_.il-160-1024x768.jpg"
     spot_img = "wp-content/uploads/2024/02/aviator.co_.il-184-1024x768.jpg"
     logos = "".join(
-        f'<div class="client">'
+        f'<div class="client" data-rv>'
         f'<img class="ph" loading="lazy" src="{u(variant(c["photo"], 768))}" alt="אוויאטור אצל הלקוח">'
         f'<div class="lg"><img loading="lazy" src="{u(variant(c["logo"], 420))}" alt="לוגו לקוח"></div>'
         f'</div>'
         for c in DATA.get("CLIENTS", []))
 
+    slides = [
+        ("wp-content/uploads/2024/02/aviator.co_.il-184.jpg", "כניסה לאולם בתא טייס אמיתי — קבלת פנים שלא שוכחים"),
+        ("wp-content/uploads/2024/02/aviator.co_.il-160.jpg", "ימי כיף וגיבוש לחברות ולצוותים"),
+        ("wp-content/uploads/2024/02/aviator.co_.il-185.jpg", "בר/בת מצווה עם טעם של טיסה"),
+        ("wp-content/uploads/2024/02/aviator.co_.il-89.jpg", "קייטנות וחוויית טיס לילדים"),
+        ("wp-content/uploads/2024/02/aviator.co_.il-93.jpg", "הפנינגים ואירועים בכל רחבי הארץ"),
+    ]
+    slide_html = "".join(
+        f'<div class="hs{" on" if n == 0 else ""}" data-cap="{H.escape(capt, quote=True)}">'
+        f'<img src="{u(variant(img, 1024))}" alt="{H.escape(capt, quote=True)}"'
+        + (' fetchpriority="high">' if n == 0 else ' loading="lazy">')
+        + '</div>'
+        for n, (img, capt) in enumerate(slides))
+    dot_html = "".join(
+        f'<button{" class=on" if n == 0 else ""} aria-label="תמונה {n+1}"></button>'
+        for n in range(len(slides)))
+    plane = ('<span class="hero-plane" aria-hidden="true">'
+             '<svg width="58" height="58" viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(76deg)">'
+             '<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>')
+    fp_plane = ('<span class="fp-plane" aria-hidden="true">'
+                '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">'
+                '<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>')
+
     body = f'''
-<section class="hero"><div class="wrap hero-in">
+<section class="hero">{plane}<div class="wrap hero-in">
 <div>
 <h1>אטרקציה שאי אפשר לשכוח:<br><em>סימולטור טיסה בתא טייס אמיתי</em></h1>
-<p>תא טייס של מטוס סילוני שטס בשמי ישראל — נייד, אמיתי עד הכפתור האחרון, ומגיע לכל מקום בארץ. לאירועים פרטיים ועסקיים, בר/בת מצווה, קייטנות, הפנינגים ופרסום.</p>
+<p class="hero-sub">תא טייס של מטוס סילוני שטס בשמי ישראל — נייד, אמיתי עד הכפתור האחרון, ומגיע לכל מקום בארץ. לאירועים פרטיים ועסקיים, בר/בת מצווה, קייטנות, הפנינגים ופרסום.</p>
 <div class="hero-cta">
 <a class="btn btn-wa" href="{WA}" target="_blank" rel="noopener">{ICONS["wa"]}דברו איתנו בוואטסאפ</a>
 <a class="btn btn-ghost" href="#services">לכל האטרקציות</a>
@@ -338,23 +361,28 @@ def build_home():
 </div>
 </div>
 <div class="hero-img">
-<img src="{u(variant(hero_img, 1024))}" alt="תא טייס אמיתי באירוע" fetchpriority="high">
-<div class="hero-badge">✈ הסימולטור הנייד הראשון בישראל בתא טייס אמיתי</div>
+<div class="hero-car">
+{slide_html}
+<div class="hero-cap">{H.escape(slides[0][1])}</div>
+<div class="hero-dots">{dot_html}</div>
+</div>
 </div>
 </div></section>
 
+<div class="flightpath" aria-hidden="true"><svg viewBox="0 0 1200 110" preserveAspectRatio="none"><path d="M1160 70 C 860 -10, 340 130, 40 30"/></svg>{fp_plane}</div>
+
 <section class="sec spot"><div class="wrap spot-in">
-<div>
+<div data-rv>
 <span class="kicker">חדש אצלנו</span>
 <h2>כזה עוד לא ראיתם: כניסה מיוחדת לאולם בתא טייס אמיתי!</h2>
 <p>החתן, הכלה או חתן הבר-מצווה נכנסים לאולם בתוך תא טייס אמיתי — כניסה מרשימה שאף אורח לא ישכח.</p>
 <a class="btn" href="{enc("כניסה-לאולם-בתא")}/">לפרטים על הכניסה לאולם</a>
 </div>
-<img loading="lazy" src="{u(variant(spot_img, 1024))}" alt="כניסה לאולם בתא טייס">
+<img loading="lazy" data-rv src="{u(variant(spot_img, 1024))}" alt="כניסה לאולם בתא טייס">
 </div></section>
 
 <section class="sec" id="services"><div class="wrap">
-<div class="sec-head">
+<div class="sec-head" data-rv>
 <span class="kicker">מה אנחנו מציעים</span>
 <h2>האטרקציות שלנו</h2>
 <p>סימולטור טיסה בתא טייס אמיתי ועוד שלל פעילויות לכל סוגי האירועים — לילדים ולמבוגרים.</p>
@@ -363,13 +391,13 @@ def build_home():
 </div></section>
 
 <section class="sec sec-alt"><div class="wrap">
-<div class="sec-head">
+<div class="sec-head" data-rv>
 <span class="kicker">סומכים עלינו</span>
 <h2>לקוחות שלנו</h2>
 <p>חברות מובילות, משרדי ממשלה ומאות לקוחות פרטיים כבר חוו את אוויאטור.</p>
 </div>
 <div class="clients">{logos}</div>
-<p style="text-align:center;margin:30px 0 0;font-weight:700;color:var(--navy);font-size:18px">נשמח לראות אתכם בין לקוחותינו!</p>
+<p style="text-align:center;margin:30px 0 0;font-weight:700;color:var(--navy);font-size:18px" data-rv>נשמח לראות אתכם בין לקוחותינו!</p>
 </div></section>
 
 {cta_band()}'''
