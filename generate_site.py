@@ -378,6 +378,52 @@ def build_home():
     dot_html = "".join(
         f'<button{" class=on" if n == 0 else ""} aria-label="תמונה {n+1}"></button>'
         for n in range(len(slides)))
+    def first_img(slug):
+        d2 = DATA.get(slug, {})
+        return next((it["src"] for it in d2.get("items", []) if it["t"] == "image"), None) \
+            or next((it["srcs"][0] for it in d2.get("items", []) if it["t"] == "gallery" and it["srcs"]), None)
+
+    # rotating spotlight band
+    spots = [
+        {"kick": "חדש אצלנו", "title": "כזה עוד לא ראיתם: כניסה מיוחדת לאולם בתא טייס אמיתי!",
+         "text": "החתן, הכלה או חתן הבר-מצווה נכנסים לאולם בתוך תא טייס אמיתי — כניסה מרשימה שאף אורח לא ישכח.",
+         "btn": "לפרטים על הכניסה לאולם", "slug": "כניסה-לאולם-בתא", "img": spot_img},
+        {"kick": "שמח באירוע", "title": "בובות ענק בגובה 2.6 מטר שעושות שמח לכולם",
+         "text": "הבובות מסתובבות בין האורחים, רוקדות ומצטלמות — אטרקציה צבעונית ומלהיבה לילדים ולמבוגרים.",
+         "btn": "לפרטים על בובות ענק", "slug": "בובות-ענק", "img": first_img("בובות-ענק")},
+        {"kick": "אתגר לכל המשפחה", "title": "משקפי ראייה הפוכה — פתאום כל העולם מתהפך!",
+         "text": "משימות שיווי משקל ומיקוד עם משקפי היפוך — צחוק גדול, אתגר אמיתי וחוויה בלתי נשכחת לכל הגילאים.",
+         "btn": "לפרטים על משקפי ראייה הפוכה", "slug": "משקפי-ראייה-הפוכה", "img": first_img("משקפי-ראייה-הפוכה")},
+        {"kick": "לחברות ולארגונים", "title": "ימי כיף ואירועי חברה שממריאים לגבהים",
+         "text": "תא טייס אמיתי, עמדות סימולציה ותחרויות מטוסי נייר — גיבוש שהעובדים לא מפסיקים לדבר עליו.",
+         "btn": "לפרטים על אירועים עסקיים", "slug": "אירועים-עסקיים", "img": first_img("אירועים-עסקיים")},
+        {"kick": "לקיץ ולחופשים", "title": "קייטנות עם טעם של טיסה אמיתית",
+         "text": "חוויית טיס לילדים: סימולטור בתא טייס אמיתי, בניית מטוסי נייר ותעודת טייס לכל משתתף.",
+         "btn": "לפרטים על קייטנות", "slug": "קייטנות", "img": first_img("קייטנות")},
+    ]
+    ss_html = "".join(
+        f'<div class="ss{" on" if n == 0 else ""}" '
+        f'data-kick="{H.escape(sp["kick"], quote=True)}" data-title="{H.escape(sp["title"], quote=True)}" '
+        f'data-text="{H.escape(sp["text"], quote=True)}" data-btn="{H.escape(sp["btn"], quote=True)}" '
+        f'data-href="{enc(sp["slug"])}/">'
+        f'<img loading="lazy" src="{u(variant(sp["img"], 1024))}" alt="{H.escape(sp["title"], quote=True)}"></div>'
+        for n, sp in enumerate(spots))
+    spot_dots = "".join(
+        f'<button{" class=on" if n == 0 else ""} aria-label="אטרקציה {n+1}"></button>'
+        for n in range(len(spots)))
+    spot_html = f'''<section class="sec spot"><div class="wrap spot-in">
+<div class="spot-txt" data-rv><div class="spot-body">
+<span class="kicker">{spots[0]["kick"]}</span>
+<h2>{spots[0]["title"]}</h2>
+<p>{spots[0]["text"]}</p>
+<a class="btn" href="{enc(spots[0]["slug"])}/">{spots[0]["btn"]}</a>
+</div></div>
+<div class="spot-car" data-rv>
+{ss_html}
+<div class="spot-dots">{spot_dots}</div>
+</div>
+</div></section>'''
+
     plane = ('<span class="hero-plane" aria-hidden="true">'
              '<svg width="58" height="58" viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(76deg)">'
              '<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>')
@@ -411,15 +457,7 @@ def build_home():
 
 <div class="flightpath" aria-hidden="true"><svg viewBox="0 0 1200 110" preserveAspectRatio="none"><path d="M1160 70 C 860 -10, 340 130, 40 30"/></svg>{fp_plane}</div>
 
-<section class="sec spot"><div class="wrap spot-in">
-<div data-rv>
-<span class="kicker">חדש אצלנו</span>
-<h2>כזה עוד לא ראיתם: כניסה מיוחדת לאולם בתא טייס אמיתי!</h2>
-<p>החתן, הכלה או חתן הבר-מצווה נכנסים לאולם בתוך תא טייס אמיתי — כניסה מרשימה שאף אורח לא ישכח.</p>
-<a class="btn" href="{enc("כניסה-לאולם-בתא")}/">לפרטים על הכניסה לאולם</a>
-</div>
-<img loading="lazy" data-rv src="{u(variant(spot_img, 1024))}" alt="כניסה לאולם בתא טייס">
-</div></section>
+{spot_html}
 
 <section class="sec" id="services"><div class="wrap">
 <div class="sec-head" data-rv>
