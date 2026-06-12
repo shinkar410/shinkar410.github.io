@@ -99,6 +99,38 @@ ICONS = {
     "shield": '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4zm-2 16l-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8z"/></svg>',
 }
 
+# short labels for the mobile quick-nav tiles
+GRID_LABELS = {
+    "כניסה-לאולם-בתא": "כניסה לאולם",
+    "אירועים-פרטיים": "אירועים פרטיים",
+    "אירועים-עסקיים": "אירועים עסקיים",
+    "בר-בת-מצווה": "בר/בת מצווה",
+    "קייטנות": "קייטנות",
+    "הפנינג": "הפנינג",
+    "פרסום": "פרסום",
+    "סדנה-מטוסי-גבס": "סדנת מטוסי גבס",
+    "חץ-וקשת": "חץ וקשת",
+    "בובות-ענק": "בובות ענק",
+    "משקפי-ראייה-הפוכה": "משקפי ראייה הפוכה",
+    "גלריה": "גלריה",
+    "סרטונים": "סרטונים",
+    "אודותינו": "אודותינו",
+}
+
+def page_grid(rel, active=None):
+    """compact tile grid linking to every page — shown on mobile only"""
+    home = rel if rel else "./"
+    tiles = f'<a href="{home}"{" class=on" if active == "HOME" else ""}>ראשי</a>'
+    order = ["כניסה-לאולם-בתא", "אירועים-פרטיים", "אירועים-עסקיים", "בר-בת-מצווה",
+             "קייטנות", "הפנינג", "פרסום", "סדנה-מטוסי-גבס", "חץ-וקשת",
+             "בובות-ענק", "משקפי-ראייה-הפוכה", "גלריה", "סרטונים", "אודותינו"]
+    for s in order:
+        cls = ' class="on"' if s == active else ""
+        tiles += f'<a href="{rel}{enc(s)}/"{cls}>{GRID_LABELS[s]}</a>'
+    cls = ' on' if active == "צור-קשר" else ""
+    tiles += f'<a href="{rel}{enc("צור-קשר")}/" class="pg-contact{cls}">צור קשר</a>'
+    return f'<nav class="pgrid" aria-label="ניווט מהיר">{tiles}</nav>'
+
 def header(rel, active=None):
     home = rel if rel else "./"
     more = "".join(
@@ -163,6 +195,7 @@ def shell(rel, title, desc, body, active=None, og_img=None):
 </head>
 <body>
 {header(rel, active)}
+{page_grid(rel, active)}
 {body}
 {footer(rel)}
 <script src="{rel}assets/site.js" defer></script>
