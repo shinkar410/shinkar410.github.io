@@ -2721,38 +2721,137 @@
   ]
  },
  "CLIENTS": [
-  "wp-content/uploads/2021/07/2-1024x339.jpg",
-  "wp-content/uploads/2021/07/1-1024x339.jpg",
-  "wp-content/uploads/2021/07/zFB_IMG_1498561130439-5-1024x339.jpg",
-  "wp-content/uploads/2021/07/1327412779-2-1024x339.jpg",
-  "wp-content/uploads/2021/07/3-1024x339.jpg",
-  "wp-content/uploads/2021/07/6-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/7-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/8-2-1024x339.jpg",
-  "wp-content/uploads/2021/07/9-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/27-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/11-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/12-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/13-1024x339.jpg",
-  "wp-content/uploads/2021/07/14-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/15-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/16-1-1024x339.jpg",
-  "wp-content/uploads/2022/01/27.jpg",
-  "wp-content/uploads/2021/07/18-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/19-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/20-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/21-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/17-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/22-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/23-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/24-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/25-1-1024x339.jpg",
-  "wp-content/uploads/2021/07/26-1-1024x339.jpg",
-  "wp-content/uploads/2022/01/6.png",
-  "wp-content/uploads/2022/01/21-1.jpg",
-  "wp-content/uploads/2022/01/22.jpg",
-  "wp-content/uploads/2022/01/25-1-1024x339-1.png",
-  "wp-content/uploads/2022/01/2.png",
-  "wp-content/uploads/2022/01/5.png"
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-135-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/2-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-134-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-133-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/zFB_IMG_1498561130439-5-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-132-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/1327412779-2-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-131-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/3-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-140-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/6-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-139-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/7-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-138.jpg",
+   "logo": "wp-content/uploads/2021/07/8-2-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-137-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/9-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-136-300x200.jpg",
+   "logo": "wp-content/uploads/2021/07/27-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-145-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/11-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-144-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/12-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-143-300x200.jpg",
+   "logo": "wp-content/uploads/2021/07/13-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-142-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/14-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-141-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/15-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-149-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/16-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-148-300x199.jpg",
+   "logo": "wp-content/uploads/2022/01/27.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-147-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/18-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-146-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/19-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-74-300x225.jpg",
+   "logo": "wp-content/uploads/2021/07/20-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-153-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/21-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-101-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/17-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-152-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/22-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-151-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/23-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-150-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/24-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-157-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/25-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-156-300x199.jpg",
+   "logo": "wp-content/uploads/2021/07/26-1-1024x339.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-155-300x199.jpg",
+   "logo": "wp-content/uploads/2022/01/6.png"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-154-300x199.jpg",
+   "logo": "wp-content/uploads/2022/01/21-1.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-102-300x199.jpg",
+   "logo": "wp-content/uploads/2022/01/22.jpg"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-158-300x199.jpg",
+   "logo": "wp-content/uploads/2022/01/25-1-1024x339-1.png"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-159-300x199.png",
+   "logo": "wp-content/uploads/2022/01/2.png"
+  },
+  {
+   "photo": "wp-content/uploads/2024/02/aviator.co_.il-158-300x199.png",
+   "logo": "wp-content/uploads/2022/01/5.png"
+  }
  ]
 }

@@ -110,7 +110,7 @@ def header(rel, active=None):
         label = "כניסה לאולם — חדש!" if s == "כניסה-לאולם-בתא" else PAGES[s]
         nav_links += f'<a href="{rel}{enc(s)}/"{cls}>{label}</a>'
     return f'''<header class="hdr"><div class="wrap hdr-in">
-<a class="brand" href="{home}"><b>AVIATOR<span>✈</span></b><small>תא טייס אמיתי לאירועים</small></a>
+<a class="brand" href="{home}"><img class="brand-img" src="{rel}assets/logo.png" alt="AVIATOR — אטרקציה והדמיית טיסה בתא טייס אמיתי"></a>
 <nav class="nav" id="nav">
 <a href="{home}"{' class="on"' if active == "HOME" else ""}>ראשי</a>
 <details class="nav-more"><summary>אטרקציות</summary><div class="nav-more-menu">{more}</div></details>
@@ -127,7 +127,7 @@ def footer(rel):
                      for s in ["גלריה", "סרטונים", "אודותינו", "צור-קשר", "vcard2"])
     return f'''<footer class="ftr"><div class="wrap ftr-in">
 <div>
-<a class="brand" href="{home}"><b>AVIATOR<span>✈</span></b><small>תא טייס אמיתי לאירועים</small></a>
+<a class="ftr-logo" href="{home}"><img src="{rel}assets/logo.png" alt="AVIATOR" width="170" loading="lazy"></a>
 <p>סימולטור טיסה בתא טייס אמיתי של מטוס סילוני — אטרקציה ניידת לאירועים פרטיים ועסקיים, בר/בת מצווה, קייטנות, הפנינגים ופרסום, בכל רחבי הארץ.</p>
 <div class="ftr-soc">
 <a href="{FB}" target="_blank" rel="noopener" aria-label="פייסבוק">{ICONS["fb"]}</a>
@@ -155,7 +155,7 @@ def shell(rel, title, desc, body, active=None, og_img=None):
 <meta property="og:title" content="{H.escape(title, quote=True)}">
 <meta property="og:description" content="{H.escape(desc, quote=True)}">
 <meta property="og:type" content="website">{og}
-<link rel="icon" type="image/svg+xml" href="{rel}assets/favicon.svg">
+<link rel="icon" type="image/png" href="{rel}assets/favicon.png">
 <link rel="preload" href="{rel}assets/fonts/heebo-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{rel}assets/site.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id={GA}"></script>
@@ -316,8 +316,11 @@ def build_home():
     hero_img = "wp-content/uploads/2024/02/aviator.co_.il-160-1024x768.jpg"
     spot_img = "wp-content/uploads/2024/02/aviator.co_.il-184-1024x768.jpg"
     logos = "".join(
-        f'<div><img loading="lazy" src="{u(variant(l, 420))}" alt="לקוח"></div>'
-        for l in DATA.get("CLIENTS", []))
+        f'<div class="client">'
+        f'<img class="ph" loading="lazy" src="{u(variant(c["photo"], 768))}" alt="אוויאטור אצל הלקוח">'
+        f'<div class="lg"><img loading="lazy" src="{u(variant(c["logo"], 420))}" alt="לוגו לקוח"></div>'
+        f'</div>'
+        for c in DATA.get("CLIENTS", []))
 
     body = f'''
 <section class="hero"><div class="wrap hero-in">
@@ -365,7 +368,8 @@ def build_home():
 <h2>לקוחות שלנו</h2>
 <p>חברות מובילות, משרדי ממשלה ומאות לקוחות פרטיים כבר חוו את אוויאטור.</p>
 </div>
-<div class="logos">{logos}</div>
+<div class="clients">{logos}</div>
+<p style="text-align:center;margin:30px 0 0;font-weight:700;color:var(--navy);font-size:18px">נשמח לראות אתכם בין לקוחותינו!</p>
 </div></section>
 
 {cta_band()}'''
@@ -445,8 +449,7 @@ def build_vcard():
         f'<span class="ic" style="background:{color}">{ICONS[ic]}</span>{label}</a>'
         for href, ic, color, label in links)
     body = f'''<main class="vcard-page">{photo_html}
-<h1 style="color:var(--navy);font-size:30px;font-weight:800;margin:22px 0 2px">AVIATOR<span style="color:var(--red)">✈</span></h1>
-<p style="color:var(--muted);margin:0">תא טייס אמיתי לאירועים ופרסום</p>
+<h1 style="margin:22px 0 2px"><img src="{rel}assets/logo.png" alt="AVIATOR — אטרקציה והדמיית טיסה בתא טייס אמיתי" width="230" style="margin:0 auto"></h1>
 <div class="vcard-links">{lh}</div></main>'''
     return shell(rel, d["title"], d["desc"], body)
 
