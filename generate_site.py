@@ -329,10 +329,24 @@ def render_prose(items, rel, page_title):
     flush()
     return "\n".join(out)
 
-def page_hero(title, rel):
+PLANE_PATH = "M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
+
+def page_hero(title, rel, kicker="תא טייס אמיתי לאירועים"):
     home = rel if rel else "./"
-    return (f'<section class="page-hero"><div class="wrap"><h1>{H.escape(title)}</h1>'
-            f'<div class="crumb"><a href="{home}">ראשי</a> ‹ {H.escape(title)}</div></div></section>')
+    deco = ('<div class="ph-deco" aria-hidden="true">'
+            '<svg viewBox="0 0 1200 220" preserveAspectRatio="none">'
+            '<path class="ph-arc" d="M-40 168 C 320 36, 880 36, 1240 168"/>'
+            f'<g class="ph-plane"><path d="{PLANE_PATH}" transform="translate(-12 -12)"/></g>'
+            '</svg></div>')
+    badge = (f'<span class="ph-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+             f'<path d="{PLANE_PATH}"/></svg></span>')
+    underline = ('<svg class="ph-u" viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true">'
+                 '<path d="M6 10 C 70 3, 150 14, 210 7 S 290 4, 294 11"/></svg>')
+    return (f'<section class="page-hero">{deco}<div class="wrap ph-in">'
+            f'<span class="ph-kick">{badge}{H.escape(kicker)}</span>'
+            f'<h1>{H.escape(title)}{underline}</h1>'
+            f'<div class="crumb"><a href="{home}">ראשי</a> ‹ {H.escape(title)}</div>'
+            f'</div></section>')
 
 # ---------------- service / generic pages ----------------
 def build_generic(slug):
