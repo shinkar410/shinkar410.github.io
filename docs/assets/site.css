@@ -250,6 +250,48 @@ a { color: var(--blue); text-decoration: none; }
   .flightpath svg { height: 60px; }
 }
 
+/* page-long winding sky path (homepage) */
+body { position: relative; }
+.skypath {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: none;
+}
+.skypath svg { display: block; overflow: visible; }
+.sp-track {
+  fill: none;
+  stroke: #8fb4dd;
+  stroke-width: 2.5;
+  stroke-dasharray: 10 13;
+  opacity: .5;
+  animation: dash 1.4s linear infinite;
+}
+.sp-trail {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  opacity: .8;
+}
+.skyplane {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 50;
+  pointer-events: none;
+  display: none;
+  will-change: transform;
+}
+.skyplane svg { display: block; filter: drop-shadow(0 4px 8px rgba(13, 42, 77, .28)); }
+/* content floats above the path; section backgrounds stay below it */
+.sec > .wrap, .hero > .wrap, .flightpath { position: relative; z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .skypath, .skyplane { display: none !important; }
+}
+
 /* carousel arrows */
 .car-prev, .car-next {
   position: absolute;

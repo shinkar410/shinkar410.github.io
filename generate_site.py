@@ -518,7 +518,16 @@ def build_home():
 <p style="text-align:center;margin:30px 0 0;font-weight:700;color:var(--navy);font-size:18px" data-rv>נשמח לראות אתכם בין לקוחותינו!</p>
 </div></section>
 
-{cta_band()}'''
+{cta_band()}
+
+<div class="skypath" aria-hidden="true"><svg preserveAspectRatio="none">
+<path class="sp-track" d=""/>
+<path class="sp-trail" d=""/>
+</svg></div>
+<div class="skyplane" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 44 44">
+<circle cx="22" cy="22" r="21" fill="#fff" stroke="#e3e9f1"/>
+<path d="{PLANE_D}" transform="translate(7 7) scale(1.25)" fill="#0d2a4d"/>
+</svg></div>'''
     return shell(rel, DATA["HOME"]["title"], DATA["HOME"]["desc"], body, active="HOME")
 
 # ---------------- gallery ----------------

@@ -110,6 +110,76 @@
     fpUpdate();
   }
 
+  // page-long sky path: built in pixel coords, drawn by scroll
+  var sky = document.querySelector('.skypath');
+  if (sky && !noMotion) {
+    var sSvg = sky.querySelector('svg');
+    var sTrack = sky.querySelector('.sp-track');
+    var sTrail = sky.querySelector('.sp-trail');
+    var sPlane = document.querySelector('.skyplane');
+    var sL = 0, sTop = 0;
+    var skyUpdate = function () {
+      if (!sL) return;
+      var r = sky.getBoundingClientRect();
+      var p = ((window.innerHeight || 1) * 0.65 - r.top) / r.height;
+      p = Math.max(0, Math.min(1, p));
+      var len = p * sL;
+      var pt = sTrack.getPointAtLength(len);
+      var ahead = sTrack.getPointAtLength(Math.min(sL, len + 2));
+      var a = Math.atan2(ahead.y - pt.y, ahead.x - pt.x) * 180 / Math.PI;
+      if (sPlane) {
+        sPlane.style.transform = 'translate(' + (pt.x - 22).toFixed(1) + 'px,'
+          + (sTop + pt.y - 22).toFixed(1) + 'px) rotate(' + (a + 90).toFixed(1) + 'deg)';
+      }
+      sTrail.style.strokeDashoffset = sL - len;
+    };
+    var skyBuild = function () {
+      var sv = document.getElementById('services');
+      var cta = document.querySelector('.cta-band');
+      if (!sv || !cta) return;
+      var top = sv.getBoundingClientRect().top + window.scrollY - 30;
+      var end = cta.getBoundingClientRect().top + window.scrollY - 24;
+      var Hh = end - top;
+      if (Hh < 400) { sky.style.display = 'none'; if (sPlane) sPlane.style.display = 'none'; return; }
+      var W = document.documentElement.clientWidth;
+      sTop = top;
+      sky.style.display = 'block';
+      if (sPlane) sPlane.style.display = 'block';
+      sky.style.top = top + 'px';
+      sky.style.height = Hh + 'px';
+      sSvg.setAttribute('viewBox', '0 0 ' + W + ' ' + Hh);
+      sSvg.setAttribute('width', W);
+      sSvg.setAttribute('height', Hh);
+      var cx = W / 2, amp = W * 0.42;
+      var n = Math.max(2, Math.round(Hh / 620));
+      var d = 'M ' + cx + ' 0', y = 0, side = 1;
+      for (var k = 0; k < n; k++) {
+        var y2 = Math.round((k + 1) * Hh / n);
+        d += ' C ' + Math.round(cx + side * amp) + ' ' + Math.round(y + (y2 - y) * 0.3)
+           + ', ' + Math.round(cx + side * amp) + ' ' + Math.round(y + (y2 - y) * 0.7)
+           + ', ' + cx + ' ' + y2;
+        y = y2;
+        side = -side;
+      }
+      sTrack.setAttribute('d', d);
+      sTrail.setAttribute('d', d);
+      sL = sTrack.getTotalLength();
+      sTrail.style.strokeDasharray = sL;
+      sTrail.style.strokeDashoffset = sL;
+      skyUpdate();
+    };
+    var sTick = false;
+    addEventListener('scroll', function () {
+      if (!sTick) { sTick = true; requestAnimationFrame(function () { sTick = false; skyUpdate(); }); }
+    }, { passive: true });
+    addEventListener('resize', skyBuild, { passive: true });
+    addEventListener('load', skyBuild);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () { skyBuild(); }).observe(document.body);
+    }
+    skyBuild();
+  }
+
   // scroll reveal
   var rv = document.querySelectorAll('[data-rv]');
   if (rv.length && 'IntersectionObserver' in window && !noMotion) {
