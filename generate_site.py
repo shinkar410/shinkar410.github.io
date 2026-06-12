@@ -364,8 +364,9 @@ def build_generic(slug):
     rel = "../"
     title = d["title"] or f"{PAGES[slug]} - AVIATOR"
     desc = d["desc"] or f"{PAGES[slug]} — אטרקציית תא טייס אמיתי לאירועים מבית AVIATOR."
-    # gypsum-plane workshop: only the hsGgD7qdZCg short opens the page; rest go bottom
-    top_only = "hsGgD7qdZCg" if slug == "סדנה-מטוסי-גבס" else None
+    # pages where one specific video opens the page and the rest go to the bottom
+    TOP_ONLY = {"סדנה-מטוסי-גבס": "hsGgD7qdZCg", "משקפי-ראייה-הפוכה": "FOrC3es5oGw"}
+    top_only = TOP_ONLY.get(slug)
     body = (page_hero(PAGES[slug], rel)
             + f'<main class="wrap"><article class="prose">{render_prose(d["items"], rel, PAGES[slug], top_only=top_only)}</article></main>'
             + cta_band())
