@@ -244,8 +244,10 @@ def tidy(t):
     t = re.sub(r' ?\n ?', '\n', t)
     return t.strip()
 
-def render_prose(items, rel, page_title):
-    """flat item list -> structured article html (videos hoisted to top)"""
+def render_prose(items, rel, page_title, top_only=None):
+    """flat item list -> structured article html (videos hoisted to top).
+    top_only: if set, only the video whose url contains this string opens the
+    page; the remaining videos are rendered together at the very bottom."""
     out = []
     imgbuf = []
     vidbuf = []
@@ -254,7 +256,13 @@ def render_prose(items, rel, page_title):
     last_kind = None
 
     # the video(s) always open the page; text and images follow below
-    top_vids = [it["url"] for it in items if it["t"] == "video"]
+    all_vids = [it["url"] for it in items if it["t"] == "video"]
+    if top_only is not None:
+        top_vids = [v for v in all_vids if top_only in v]
+        bottom_vids = [v for v in all_vids if top_only not in v]
+    else:
+        top_vids = all_vids
+        bottom_vids = []
     if top_vids:
         out.append(vids_block(top_vids))
 
@@ -327,6 +335,8 @@ def render_prose(items, rel, page_title):
                 out.append(f'<p>{txt_esc}</p>')
                 last_kind = "p"
     flush()
+    if bottom_vids:
+        out.append(vids_block(bottom_vids, "margin-top:34px"))
     return "\n".join(out)
 
 PLANE_PATH = "M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
@@ -354,8 +364,10 @@ def build_generic(slug):
     rel = "../"
     title = d["title"] or f"{PAGES[slug]} - AVIATOR"
     desc = d["desc"] or f"{PAGES[slug]} — אטרקציית תא טייס אמיתי לאירועים מבית AVIATOR."
+    # gypsum-plane workshop: only the hsGgD7qdZCg short opens the page; rest go bottom
+    top_only = "hsGgD7qdZCg" if slug == "סדנה-מטוסי-גבס" else None
     body = (page_hero(PAGES[slug], rel)
-            + f'<main class="wrap"><article class="prose">{render_prose(d["items"], rel, PAGES[slug])}</article></main>'
+            + f'<main class="wrap"><article class="prose">{render_prose(d["items"], rel, PAGES[slug], top_only=top_only)}</article></main>'
             + cta_band())
     return shell(rel, title, desc, body, active=slug)
 
