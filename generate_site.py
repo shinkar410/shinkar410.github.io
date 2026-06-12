@@ -363,6 +363,11 @@ def build_generic(slug):
 def build_home():
     d = DATA["HOME"]
     rel = ""
+    # explicit homepage imagery overrides (card + spotlight)
+    CARD_IMG = {
+        "אירועים-פרטיים": "wp-content/uploads/2026/06/private-events.webp",
+        "משקפי-ראייה-הפוכה": "wp-content/uploads/2026/06/mishkafei-glasses.webp",
+    }
     # cards: img -> h1 -> text -> btn groups
     cards = []
     cur = {}
@@ -406,7 +411,8 @@ def build_home():
         d2 = DATA.get(slug)
         if not d2:
             continue
-        img = next((it["src"] for it in d2["items"] if it["t"] == "image"), None) \
+        img = CARD_IMG.get(slug) \
+            or next((it["src"] for it in d2["items"] if it["t"] == "image"), None) \
             or next((it["srcs"][0] for it in d2["items"] if it["t"] == "gallery" and it["srcs"]), None)
         blurb = NEW_BLURBS.get(slug) or (d2.get("desc") or "").strip()
         if len(blurb) < 30:
@@ -476,7 +482,7 @@ def build_home():
          "btn": "לפרטים על בובות חתונה", "slug": "בובות-חתונה", "img": first_img("בובות-חתונה")},
         {"kick": "חדר כושר למוח · לא VR", "title": "משקפי ראייה הפוכה — חדר כושר למוח",
          "text": "לא משקפי VR! משקפיים שמהפכים את הראייה ומאמנים את המוח — משימות שיווי משקל, מיקוד וצחוק גדול לכל הגילאים.",
-         "btn": "לפרטים על משקפי ראייה הפוכה", "slug": "משקפי-ראייה-הפוכה", "img": first_img("משקפי-ראייה-הפוכה")},
+         "btn": "לפרטים על משקפי ראייה הפוכה", "slug": "משקפי-ראייה-הפוכה", "img": CARD_IMG["משקפי-ראייה-הפוכה"]},
         {"kick": "לחברות ולארגונים", "title": "ימי כיף ואירועי חברה שממריאים לגבהים",
          "text": "תא טייס אמיתי, עמדות סימולציה ותחרויות מטוסי נייר — גיבוש שהעובדים לא מפסיקים לדבר עליו.",
          "btn": "לפרטים על אירועים עסקיים", "slug": "אירועים-עסקיים", "img": first_img("אירועים-עסקיים")},
