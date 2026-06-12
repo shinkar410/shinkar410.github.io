@@ -341,8 +341,7 @@ def build_generic(slug):
     body = (page_hero(PAGES[slug], rel)
             + f'<main class="wrap"><article class="prose">{render_prose(d["items"], rel, PAGES[slug])}</article></main>'
             + cta_band())
-    active = slug if slug in TOP_NAV else None
-    return shell(rel, title, desc, body, active=active)
+    return shell(rel, title, desc, body, active=slug)
 
 # ---------------- home ----------------
 def build_home():
