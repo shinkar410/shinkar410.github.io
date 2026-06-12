@@ -688,6 +688,43 @@ figure.solo img { border-radius: var(--radius); box-shadow: var(--shadow); width
   .hdr-in { gap: 10px; min-height: 64px; }
   .brand-img { height: 48px; }
   .hdr-cta { padding: 8px 12px; font-size: 14px; }
+
+  /* denser mobile homepage: see more than one thing per screen */
+  .sec { padding: 34px 0; }
+  .sec-head { margin-bottom: 22px; }
+  .sec-head h2 { font-size: 23px; }
+  .sec-head p { font-size: 15px; }
+  .hero { padding: 26px 0 34px; }
+  .hero-in { gap: 18px; }
+  .hero h1 { font-size: 25px; margin-bottom: 10px; }
+  .hero .hero-sub { font-size: 15.5px; line-height: 1.6; margin-bottom: 16px; }
+  .hero-car { aspect-ratio: 16 / 10; }
+  .hero-cta { gap: 10px; }
+  .hero-cta .btn { flex: 1; padding: 11px 10px; font-size: 14.5px; white-space: nowrap; }
+  .hero-strip { gap: 10px; margin-top: 20px; justify-content: space-between; }
+  .hero-strip div { font-size: 12px; gap: 5px; }
+  .hero-strip svg { width: 14px; height: 14px; }
+
+  .cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card img { aspect-ratio: 16 / 11; }
+  .card-b { padding: 10px 12px 12px; }
+  .card h3 { font-size: 15px; margin-bottom: 4px; }
+  .card p { font-size: 12.5px; line-height: 1.5; -webkit-line-clamp: 2; margin-bottom: 8px; }
+  .card .more { font-size: 13px; }
+
+  .clients { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .client .lg { min-height: 46px; padding: 6px 10px; }
+  .client .lg img { max-height: 30px; }
+
+  .spot-in { gap: 16px; }
+  .spot-car { aspect-ratio: 16 / 10; }
+  .spot h2 { font-size: 21px; }
+  .spot p { font-size: 15px; margin-bottom: 16px; }
+  .spot .btn { padding: 11px 18px; font-size: 15px; }
+
+  .cta-band { padding: 32px 18px; margin: 36px 0; }
+  .cta-band .hero-cta { flex-direction: row; }
+  .ftr-in { padding: 36px 0 26px; gap: 24px; }
 }
 @media (max-width: 860px) {
   body { overflow-x: clip; }
