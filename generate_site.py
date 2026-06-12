@@ -300,6 +300,46 @@ def build_home():
             cur["blurb"] = " ".join(it["paras"])
             cards.append(cur)
             cur = {}
+
+    # every attraction in the nav gets a card; add the ones the old
+    # homepage didn't feature, built from their own page content
+    TITLE_ALIAS = {  # legacy homepage card titles -> page slug
+        "פרסום נייד/קבוע": "פרסום",
+        "סדנה מטוסי גבס": "סדנה-מטוסי-גבס",
+        "כניסה לאולם בתא טייס אמיתי": "כניסה-לאולם-בתא",
+    }
+    NEW_BLURBS = {
+        "אירועים-פרטיים": "חתונה, בר/בת מצווה או יום הולדת — תא טייס אמיתי שהופך כל אירוע פרטי לחוויה שמדברים עליה.",
+        "אירועים-עסקיים": "ימי כיף, אירועי חברה ותערוכות — אטרקציה ממותגת שמושכת קהל, מגבשת את הצוות ונחרטת בזיכרון.",
+        "חץ-וקשת": "עמדת חץ וקשת מקצועית ובטוחה — תחרות מדויקת, ספורטיבית ומלהיבה לילדים ולמבוגרים.",
+        "בובות-ענק": "בובות ענק בגובה 2.6 מטר שמסתובבות באירוע, מצטלמות עם האורחים ועושות שמח לכל גיל.",
+        "משקפי-ראייה-הפוכה": "אתגר משקפי הראייה ההפוכה — משימות שיווי משקל, מיקוד וצחוק גדול לכל המשפחה.",
+    }
+    covered = set()
+    for c in cards:
+        t = re.sub(r'\s+', ' ', c.get("title", "")).strip()
+        if t in TITLE_ALIAS:
+            covered.add(TITLE_ALIAS[t])
+        for slug, name in PAGES.items():
+            if t == name:
+                covered.add(slug)
+    for slug in SERVICES:
+        if slug in covered:
+            continue
+        d2 = DATA.get(slug)
+        if not d2:
+            continue
+        img = next((it["src"] for it in d2["items"] if it["t"] == "image"), None) \
+            or next((it["srcs"][0] for it in d2["items"] if it["t"] == "gallery" and it["srcs"]), None)
+        blurb = NEW_BLURBS.get(slug) or (d2.get("desc") or "").strip()
+        if len(blurb) < 30:
+            blurb = next((it["text"].replace("\n", " ") for it in d2["items"]
+                          if it["t"] == "heading" and len(it["text"]) > 40), "") \
+                or next((" ".join(it["paras"])[:220] for it in d2["items"] if it["t"] == "text"), "")
+        if img:
+            cards.append({"img": img, "link": enc(slug) + "/",
+                          "title": PAGES[slug], "blurb": blurb})
+
     card_html = ""
     for c in cards:
         link = c.get("link")
