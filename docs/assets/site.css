@@ -402,24 +402,40 @@ a { color: var(--blue); text-decoration: none; }
 .page-hero .crumb a { color: #cfe0f2; }
 .page-hero .crumb a:hover { color: #fff; }
 
-.prose { max-width: 780px; margin: 0 auto; padding: 50px 0 10px; }
-.prose p { font-size: 17.5px; line-height: 1.85; margin: 0 0 16px; }
-.prose .lead { font-size: 21px; font-weight: 700; color: var(--navy); line-height: 1.6; }
+.prose { max-width: 760px; margin: 0 auto; padding: 50px 0 10px; }
+.prose p { font-size: 18px; line-height: 1.9; margin: 0 0 18px; color: #2a3548; }
+.prose .lead {
+  font-size: 21.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.65;
+  margin-bottom: 26px;
+}
 .prose h2 {
   font-size: 23px;
   font-weight: 800;
   color: var(--navy);
-  margin: 36px 0 14px;
+  margin: 40px 0 16px;
   padding-inline-start: 14px;
   border-inline-start: 4px solid var(--red);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 .prose .em {
   font-weight: 700;
   color: var(--navy);
   background: var(--sky);
   border-radius: 12px;
-  padding: 13px 18px;
+  padding: 14px 18px;
+  margin: 24px 0;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.prose .em::before {
+  content: "✈";
+  color: var(--red);
+  flex: none;
+  font-size: 15px;
 }
 .prose ul.checks { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 9px; }
 .prose ul.checks li {

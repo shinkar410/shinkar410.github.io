@@ -194,6 +194,16 @@ def vid_embed(url):
 
 LIST_TRIGGER = re.compile(r':\s*$')
 
+def tidy(t):
+    """clean up punctuation spacing in the legacy copy"""
+    t = re.sub(r'\s+([,.!?;:])', r'\1', t)                      # no space before punctuation
+    t = re.sub(r'([,;])(?=[֐-׿A-Za-z])', r'\1 ', t)   # space after comma
+    t = re.sub(r'(?<=[֐-׿])([!?.])(?=[֐-׿])', r'\1 ', t)
+    t = t.replace('\\', '/')
+    t = re.sub(r'[ \t]{2,}', ' ', t)
+    t = re.sub(r' ?\n ?', '\n', t)
+    return t.strip()
+
 def render_prose(items, rel, page_title):
     """flat item list -> structured article html"""
     out = []
@@ -201,9 +211,12 @@ def render_prose(items, rel, page_title):
     vidbuf = []
     lead_used = False
     in_list = False
+    last_kind = None
 
     def flush():
-        nonlocal imgbuf, vidbuf, in_list
+        nonlocal imgbuf, vidbuf, in_list, last_kind
+        if imgbuf or vidbuf:
+            last_kind = None
         if in_list:
             out.append('</ul>')
             in_list = False
@@ -240,10 +253,10 @@ def render_prose(items, rel, page_title):
         if t == "text":
             flush()
             for p in it["paras"]:
-                out.append(f'<p>{H.escape(p)}</p>')
+                out.append(f'<p>{H.escape(tidy(p))}</p>')
             continue
         if t == "heading":
-            txt = it["text"].strip()
+            txt = tidy(it["text"])
             if not txt or txt == page_title:
                 continue
             txt_esc = H.escape(txt).replace("\n", "<br>")
@@ -256,13 +269,21 @@ def render_prose(items, rel, page_title):
             if LIST_TRIGGER.search(txt):
                 out.append(f'<h2>{H.escape(txt.rstrip(":").strip())}</h2><ul class="checks">')
                 in_list = True
+                last_kind = "h2"
+            elif txt.rstrip("!").endswith("?") and len(txt) <= 120:
+                # questions make natural section anchors
+                out.append(f'<h2>{txt_esc}</h2>')
+                last_kind = "h2"
             elif not lead_used and len(txt) > 40:
                 out.append(f'<p class="lead">{txt_esc}</p>')
                 lead_used = True
-            elif len(txt) <= 60:
+                last_kind = "lead"
+            elif len(txt) <= 70 and (txt.endswith("!") or len(txt) <= 45) and last_kind != "em":
                 out.append(f'<p class="em">{txt_esc}</p>')
+                last_kind = "em"
             else:
                 out.append(f'<p>{txt_esc}</p>')
+                last_kind = "p"
     flush()
     return "\n".join(out)
 
