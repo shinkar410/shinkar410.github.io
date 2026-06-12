@@ -391,10 +391,10 @@ def build_home():
         for c in DATA.get("CLIENTS", []))
 
     slides = [
-        ("wp-content/uploads/2024/02/aviator.co_.il-184.jpg", "כניסה לאולם בתא טייס אמיתי — קבלת פנים שלא שוכחים"),
         ("wp-content/uploads/2024/02/aviator.co_.il-160.jpg", "ימי כיף וגיבוש לחברות ולצוותים"),
         ("wp-content/uploads/2024/02/aviator.co_.il-185.jpg", "בר/בת מצווה עם טעם של טיסה"),
         ("wp-content/uploads/2024/02/aviator.co_.il-89.jpg", "קייטנות וחוויית טיס לילדים"),
+        ("wp-content/uploads/2024/02/aviator.co_.il-14.jpg", "כניסה לאולם בתא טייס אמיתי — קבלת פנים שלא שוכחים"),
         ("wp-content/uploads/2024/02/aviator.co_.il-93.jpg", "הפנינגים ואירועים בכל רחבי הארץ"),
     ]
     slide_html = "".join(
