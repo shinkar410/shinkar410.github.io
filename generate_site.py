@@ -11,8 +11,6 @@ DATA = json.load(open("site_content.json", encoding="utf-8"))
 
 PHONE = "+972523735775"
 PHONE_FMT = "052-373-5775"
-PHONE2_FMT = "074-701-9987"
-PHONE2 = "+972747019987"
 EMAIL = "a0523735775a@gmail.com"
 WA_MSG = urllib.parse.quote("היי, אשמח לקבל פרטים על אטרקציית תא הטייס לאירוע")
 WA = f"https://wa.me/972523735775?text={WA_MSG}"
@@ -33,6 +31,7 @@ PAGES = {
     "סדנה-מטוסי-גבס": "סדנת מטוסי גבס",
     "חץ-וקשת": "חץ וקשת",
     "בובות-ענק": "בובות ענק",
+    "בובות-חתונה": "בובות חתונה",
     "משקפי-ראייה-הפוכה": "משקפי ראייה הפוכה",
     "גלריה": "גלריה",
     "סרטונים": "סרטונים",
@@ -42,7 +41,7 @@ PAGES = {
 }
 SERVICES = ["כניסה-לאולם-בתא", "אירועים-פרטיים", "אירועים-עסקיים", "בר-בת-מצווה",
             "קייטנות", "הפנינג", "פרסום", "סדנה-מטוסי-גבס", "חץ-וקשת",
-            "בובות-ענק", "משקפי-ראייה-הפוכה"]
+            "בובות-ענק", "בובות-חתונה", "משקפי-ראייה-הפוכה"]
 TOP_NAV = ["כניסה-לאולם-בתא", "גלריה", "סרטונים", "אודותינו", "צור-קשר"]
 
 def enc(slug): return urllib.parse.quote(slug)
@@ -111,6 +110,7 @@ GRID_LABELS = {
     "סדנה-מטוסי-גבס": "סדנת מטוסי גבס",
     "חץ-וקשת": "חץ וקשת",
     "בובות-ענק": "בובות ענק",
+    "בובות-חתונה": "בובות חתונה",
     "משקפי-ראייה-הפוכה": "משקפי ראייה הפוכה",
     "גלריה": "גלריה",
     "סרטונים": "סרטונים",
@@ -123,7 +123,7 @@ def page_grid(rel, active=None):
     tiles = f'<a href="{home}"{" class=on" if active == "HOME" else ""}>ראשי</a>'
     order = ["כניסה-לאולם-בתא", "אירועים-פרטיים", "אירועים-עסקיים", "בר-בת-מצווה",
              "קייטנות", "הפנינג", "פרסום", "סדנה-מטוסי-גבס", "חץ-וקשת",
-             "בובות-ענק", "משקפי-ראייה-הפוכה", "גלריה", "סרטונים", "אודותינו"]
+             "בובות-ענק", "בובות-חתונה", "משקפי-ראייה-הפוכה", "גלריה", "אודותינו"]
     for s in order:
         cls = ' class="on"' if s == active else ""
         tiles += f'<a href="{rel}{enc(s)}/"{cls}>{GRID_LABELS[s]}</a>'
@@ -169,7 +169,7 @@ def footer(rel):
 </div>
 <div><h4>אטרקציות</h4><ul>{links}</ul></div>
 <div><h4>מידע ויצירת קשר</h4><ul>{links2}
-<li><a href="tel:{PHONE}">{PHONE_FMT}</a> · <a href="tel:{PHONE2}">{PHONE2_FMT}</a></li>
+<li><a href="tel:{PHONE}">{PHONE_FMT}</a></li>
 <li><a href="mailto:{EMAIL}">{EMAIL}</a></li></ul></div>
 </div>
 <div class="ftr-bar">© AVIATOR — כל הזכויות שמורות</div></footer>
@@ -373,6 +373,7 @@ def build_home():
         "אירועים-עסקיים": "ימי כיף, אירועי חברה ותערוכות — אטרקציה ממותגת שמושכת קהל, מגבשת את הצוות ונחרטת בזיכרון.",
         "חץ-וקשת": "עמדת חץ וקשת מקצועית ובטוחה — תחרות מדויקת, ספורטיבית ומלהיבה לילדים ולמבוגרים.",
         "בובות-ענק": "בובות ענק בגובה 2.6 מטר שמסתובבות באירוע, מצטלמות עם האורחים ועושות שמח לכל גיל.",
+        "בובות-חתונה": "בובות ענק של חתן וכלה שמוסיפות לחתונה רגע WOW — צילומים, ריקודים והפתעה שכל האורחים יזכרו.",
         "משקפי-ראייה-הפוכה": "אתגר משקפי הראייה ההפוכה — משימות שיווי משקל, מיקוד וצחוק גדול לכל המשפחה.",
     }
     covered = set()
@@ -613,7 +614,6 @@ def build_contact():
     cards = f'''<div class="contact-cards">
 <a class="ccard" href="{WA}" target="_blank" rel="noopener"><div class="ic" style="background:var(--wa)">{ICONS["wa"]}</div><h3>וואטסאפ</h3><p>{PHONE_FMT}</p></a>
 <a class="ccard" href="tel:{PHONE}"><div class="ic" style="background:var(--navy)">{ICONS["tel"]}</div><h3>טלפון</h3><p>{PHONE_FMT}</p></a>
-<a class="ccard" href="tel:{PHONE2}"><div class="ic" style="background:var(--blue)">{ICONS["tel"]}</div><h3>טלפון נוסף</h3><p>{PHONE2_FMT}</p></a>
 <a class="ccard" href="mailto:{EMAIL}"><div class="ic" style="background:var(--red)">{ICONS["mail"]}</div><h3>אימייל</h3><p style="font-size:13.5px">{EMAIL}</p></a>
 </div>'''
     body = (page_hero("צור קשר", rel)
@@ -648,6 +648,40 @@ def build_vcard():
 <div class="vcard-links">{lh}</div></main>'''
     return shell(rel, d["title"], d["desc"], body)
 
+# ---------------- wedding puppets ----------------
+def build_wedding():
+    d = DATA["בובות-חתונה"]
+    rel = "../"
+    vids = [it["url"] for it in d["items"] if it["t"] == "video"]
+    imgs = [it["src"] for it in d["items"] if it["t"] == "image"]
+
+    def checks(items):
+        return ('<ul class="checks">'
+                + "".join(f'<li>{H.escape(t)}</li>' for t in items) + '</ul>')
+
+    prose = f'''<article class="prose">
+<p class="lead">🎉 בובות ענק לאירוע שלכם! 🎉 רוצים להוסיף לטקס שלכם ייחודיות ולהעניק לאורחים חוויה בלתי נשכחת? הבובות שלנו — דמויות ענק של חתן וכלה — הן הבחירה המושלמת.</p>
+{vids_block(vids)}
+{checks(["📸 תמונות, רגשות, מחיאות כפיים והתלהבות — מובטחים",
+         "✈️ בובות הענק שלנו = אפקט WOW!",
+         "תנו לאורחים לזכור את האירוע שלכם לנצח"])}
+<h2>💍 מתנה ורגע שלא שוכחים</h2>
+{checks(["מתנה מיוחדת לזוג הצעיר או לאורחים — מושלם גם להצעות נישואין! 💓",
+         "סמל של אושר ואהבה שיישאר כמזכרת לשנים רבות",
+         "אפשרות למיתוג שמות חתן וכלה אמיתיים — בכובע של החתן, בכיס ובבטן של הכלה יש שטח למיתוג"])}
+{img_grid(imgs, rel)}
+<h2>✨ למה לבחור בנו?</h2>
+{checks(["איכות גבוהה ותשומת לב לכל פרט",
+         "גישה אישית — הבובות רוקדות ומשמחות את האורחים, מלוות בקבלת הפנים, מצטלמות עם האורחים ועושות את הערב שלכם בלתי נשכח ושמח! 💓🇮🇱"])}
+<p class="em">📸 תדמיינו כמה מרגש זה ייראה כשהבובות יעמדו ליד העוגה או בצילומי החתונה!</p>
+<p class="lead" style="text-align:center">🎁 הזמינו עכשיו והפכו את החתונה שלכם לבלתי נשכחת!</p>
+<div style="text-align:center;margin:8px 0 4px">
+<a class="btn btn-wa" href="{WA}" target="_blank" rel="noopener">{ICONS["wa"]}לפרטים והזמנות בוואטסאפ</a>
+<a class="btn" href="tel:{PHONE}" style="margin-inline-start:10px">{ICONS["tel"]}052-373-5775</a>
+</div></article>'''
+    body = page_hero("בובות חתונה", rel) + f'<main class="wrap">{prose}</main>' + cta_band()
+    return shell(rel, d["title"], d["desc"], body, active="בובות-חתונה")
+
 # ---------------- write everything ----------------
 written = []
 (DOCS / "index.html").write_text(build_home(), encoding="utf-8")
@@ -658,7 +692,9 @@ for slug in PAGES:
     elif slug == "סרטונים": html_out = build_videos()
     elif slug == "צור-קשר": html_out = build_contact()
     elif slug == "vcard2": html_out = build_vcard()
+    elif slug == "בובות-חתונה": html_out = build_wedding()
     else: html_out = build_generic(slug)
+    p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(html_out, encoding="utf-8")
     written.append(slug)
 
