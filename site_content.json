@@ -634,14 +634,40 @@
     "link": null
    },
    {
-    "t": "heading",
-    "tag": "h2",
-    "text": "לקוחות שלנו:"
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-1.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
    },
    {
-    "t": "heading",
-    "tag": "h2",
-    "text": "נשמח לראות אותכם בין לקוחותינו!"
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-2.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
+   },
+   {
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-3.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
+   },
+   {
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-4.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
+   },
+   {
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-5.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
+   },
+   {
+    "t": "image",
+    "src": "wp-content/uploads/2026/06/bubot-anak-6.webp",
+    "alt": "בובות ענק באירוע",
+    "link": null
    }
   ]
  },
