@@ -411,6 +411,9 @@ def build_home():
         return next((it["src"] for it in d2.get("items", []) if it["t"] == "image"), None) \
             or next((it["srcs"][0] for it in d2.get("items", []) if it["t"] == "gallery" and it["srcs"]), None)
 
+    ARROWS = ('<button class="car-prev" aria-label="הקודם"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>'
+              '<button class="car-next" aria-label="הבא"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>')
+
     # rotating spotlight band
     spots = [
         {"kick": "חדש אצלנו", "title": "כזה עוד לא ראיתם: כניסה מיוחדת לאולם בתא טייס אמיתי!",
@@ -448,6 +451,7 @@ def build_home():
 </div></div>
 <div class="spot-car" data-rv>
 {ss_html}
+{ARROWS}
 <div class="spot-dots">{spot_dots}</div>
 </div>
 </div></section>'''
@@ -455,9 +459,16 @@ def build_home():
     plane = ('<span class="hero-plane" aria-hidden="true">'
              '<svg width="58" height="58" viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(76deg)">'
              '<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>')
-    fp_plane = ('<span class="fp-plane" aria-hidden="true">'
-                '<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">'
-                '<path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></span>')
+    FP_D = "M1160 70 C 860 -10, 340 130, 40 30"
+    PLANE_D = "M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"
+    flightpath = (f'<div class="flightpath" aria-hidden="true">'
+                  f'<svg viewBox="0 0 1200 110" preserveAspectRatio="none">'
+                  f'<path class="fp-track" d="{FP_D}"/>'
+                  f'<path class="fp-trail" d="{FP_D}"/>'
+                  f'<g class="fpg" transform="translate(1160 70) rotate(-75)">'
+                  f'<circle r="22" fill="#fff" stroke="#e3e9f1"/>'
+                  f'<path d="{PLANE_D}" transform="translate(-17.5 -17.5) scale(1.45)" fill="#0d2a4d"/>'
+                  f'</g></svg></div>')
 
     body = f'''
 <section class="hero">{plane}<div class="wrap hero-in">
@@ -477,13 +488,14 @@ def build_home():
 <div class="hero-img">
 <div class="hero-car">
 {slide_html}
+{ARROWS}
 <div class="hero-cap">{H.escape(slides[0][1])}</div>
 <div class="hero-dots">{dot_html}</div>
 </div>
 </div>
 </div></section>
 
-<div class="flightpath" aria-hidden="true"><svg viewBox="0 0 1200 110" preserveAspectRatio="none"><path d="M1160 70 C 860 -10, 340 130, 40 30"/></svg>{fp_plane}</div>
+{flightpath}
 
 {spot_html}
 
