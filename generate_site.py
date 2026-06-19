@@ -731,6 +731,8 @@ def build_wedding():
 
 # ---------------- write everything ----------------
 written = []
+# custom domain for GitHub Pages (must persist across regenerations)
+(DOCS / "CNAME").write_text("aviator.co.il", encoding="utf-8")
 (DOCS / "index.html").write_text(build_home(), encoding="utf-8")
 written.append("HOME")
 for slug in PAGES:
