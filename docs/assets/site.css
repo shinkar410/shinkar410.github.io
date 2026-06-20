@@ -964,6 +964,11 @@ figure.solo img { border-radius: var(--radius); box-shadow: var(--shadow); width
   .cta-band { padding: 32px 18px; margin: 36px 0; }
   .cta-band .hero-cta { flex-direction: row; }
   .ftr-in { padding: 36px 0 26px; gap: 24px; }
+
+  /* dense phone-gallery image grid: many small tiles, hairline gaps */
+  .grid.g-imgs { gap: 3px; margin: 16px 0; }
+  .g-imgs { grid-template-columns: repeat(3, 1fr); }
+  .g-imgs a { border-radius: 4px; }
 }
 @media (max-width: 860px) {
   body { overflow-x: clip; }
