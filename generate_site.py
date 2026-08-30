@@ -304,8 +304,9 @@ def render_prose(items, rel, page_title, top_only=None):
             imgbuf.append(it["src"])
             continue
         if t == "gallery":
-            flush()
-            out.append(img_grid(it["srcs"], rel))
+            if in_list: out.append('</ul>'); in_list = False
+            if vidbuf: flush()
+            imgbuf.extend(it["srcs"])
             continue
         if t == "video":
             continue  # already rendered at the top
