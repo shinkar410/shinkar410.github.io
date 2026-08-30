@@ -693,6 +693,13 @@ body { position: relative; }
   flex: none;
   font-size: 15px;
 }
+.phone-nowrap {
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
 .prose ul.checks { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 9px; }
 .prose ul.checks li {
   background: #fff;

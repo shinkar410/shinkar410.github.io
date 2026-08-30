@@ -319,6 +319,10 @@ def render_prose(items, rel, page_title, top_only=None):
             if not txt or txt == page_title:
                 continue
             txt_esc = H.escape(txt).replace("\n", "<br>")
+            txt_esc = txt_esc.replace(
+                PHONE_FMT,
+                f'<span class="phone-nowrap" dir="ltr">{PHONE_FMT}</span>',
+            )
             if in_list:
                 if len(txt) <= 110:
                     out.append(f'<li>{txt_esc}</li>')
